@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--auto annotation-->
+    <mvc:annotation-driven/>
+    <!-- 自动扫描Controller -->
+    <context:component-scan base-package="com.assign.ssm.controller"/>
+
+
+    <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--&lt;!&ndash; 通过setter方法注入前缀 /WEB-INF/jsps/showMsg.jsp&ndash;&gt;-->
+    <!--<property name="prefix" value="/WEB-INF/jsps/" />-->
+    <!--&lt;!&ndash; 通过setter方法注入后缀 &ndash;&gt;-->
+    <!--<property name="suffix" value=".jsp" />-->
+    <!--</bean>-->
+
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="defaultEncoding">UTF-8</prop>
+            </props>
+        </property>
+
+    </bean>
+
+    <!--
+    View resolvers can also be configured with ResourceBundles or XML files. If you need
+    different view resolving based on Locale, you have to use the resource bundle resolver.
+    -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="true"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/>
+
+        <property name="contentType" value="text/html" />
+
+    </bean>
+
+
+</beans>

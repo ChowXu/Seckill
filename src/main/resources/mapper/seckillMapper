@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper>
+    <select id="getSeckillList" resultType="com.assign.ssm.bean.Seckill">
+        SELECT s.seckill_id, s.name, s.number, s.start_time, s.end_time,s.create_time FROM seckillCopy s where 1 = 1;
+    </select>
+
+    <delete id="deleteSeckill" >
+        DELETE FROM seckillCopy s WHERE s.seckill_id = #{seckillId}
+    </delete>
+
+    <insert id="insertSeckill">
+        INSERT INTO seckillCopy(name,number,start_time,end_time,crate_time) VALUES (#{name}, #{number},#{starttime})
+    </insert>
+</mapper>
