@@ -3,16 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper>
+<mapper namespace="com.assign.ssm.Dao.SeckillDao">
     <select id="getSeckillList" resultType="com.assign.ssm.bean.Seckill">
-        SELECT s.seckill_id, s.name, s.number, s.start_time, s.end_time,s.create_time FROM seckillCopy s where 1 = 1;
+        SELECT s.seckill_id, s.name, s.number, s.start_time, s.end_time,s.create_time
+        FROM seckill S
+        ORDER BY start_time DESC
+        LIMIT #{offset}, #{limit};
     </select>
 
-    <delete id="deleteSeckill" >
-        DELETE FROM seckillCopy s WHERE s.seckill_id = #{seckillId}
-    </delete>
 
-    <insert id="insertSeckill">
-        INSERT INTO seckillCopy(name,number,start_time,end_time,crate_time) VALUES (#{name}, #{number},#{starttime})
-    </insert>
+    <update id="reduceNum">
+        update seckill set number = number  - 1
+        where seckill_id = #{seckillId}
+        and start_time &lt;= #{killTime}
+        and end_time &gt;= #{killTime}
+        and number > 0;
+    </update>
+
+    <select id="queryById" resultType="com.assign.ssm.bean.Seckill">
+        SELECT seckill_id, name, number,end_time,start_time,create_time from seckill
+        where seckill_id = #{seckillId};
+    </select>
+
+
+
 </mapper>

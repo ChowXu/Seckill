@@ -9,18 +9,12 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <!--auto annotation-->
+    <!--auto annotation  使用注解-->
     <mvc:annotation-driven/>
+
     <!-- 自动扫描Controller -->
     <context:component-scan base-package="com.assign.ssm.controller"/>
 
-
-    <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-    <!--&lt;!&ndash; 通过setter方法注入前缀 /WEB-INF/jsps/showMsg.jsp&ndash;&gt;-->
-    <!--<property name="prefix" value="/WEB-INF/jsps/" />-->
-    <!--&lt;!&ndash; 通过setter方法注入后缀 &ndash;&gt;-->
-    <!--<property name="suffix" value=".jsp" />-->
-    <!--</bean>-->
 
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
@@ -41,7 +35,7 @@
         <property name="prefix" value=""/>
         <property name="suffix" value=".ftl"/>
 
-        <property name="contentType" value="text/html" />
+        <property name="contentType" value="text/html"/>
 
     </bean>
 

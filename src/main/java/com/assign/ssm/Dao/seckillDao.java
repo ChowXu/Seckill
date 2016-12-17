@@ -1,7 +1,9 @@
 package com.assign.ssm.Dao;
 
 import com.assign.ssm.bean.Seckill;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,14 +13,36 @@ import java.util.List;
  *
  * seckill Dao CURD 增删改查
  */
-public interface seckillDao {
+public interface SeckillDao {
 
     int insertSeckill(Seckill seckill);
 
-    List<Seckill> getSeckillList();
+    /**
+     * 根据ID 查找列表
+     * @param offset
+     * @param limit
+     * @return
+     */
+    List<Seckill> getSeckillList(@Param("offset") int offset, @Param("limit") int limit);
 
-    void deleteSeckill(Seckill seckill);
 
-    int updateSeckill(Seckill seckill);
+    /**
+     *
+     * @param seckillId
+     * @param date
+     * @return
+     */
+    int reduceNum(@Param("seckillId") int seckillId, @Param("killTime") Date date);
+
+    /**
+     * 根据ID 查找 Seckill
+     * @param seckillId
+     * @return
+     */
+    Seckill queryById(@Param("seckillId") int seckillId);
+
+
+
+
 
 }

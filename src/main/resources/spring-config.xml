@@ -3,18 +3,20 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:context="http://www.springframework.org/schema/c"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:config.properties" />
+        <property name="location" value="classpath:config.properties"/>
     </bean>
 
     <!--dataSource-->
@@ -26,10 +28,11 @@
     </bean>
 
 
+    <!--定义sqlSessionFactory的两种方式-->
     <!--sqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:UserMapper.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/seckillMapper"/>
         <property name="configuration">
             <bean class="org.apache.ibatis.session.Configuration">
                 <property name="mapUnderscoreToCamelCase" value="true"/>
@@ -39,15 +42,23 @@
 
     </bean>
 
-    <!--userMapper-->
-    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.assign.ssm.UserMapper"/>
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+
+    <!--Mybatis -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.assign.ssm.Dao"/>
     </bean>
 
 
+    <!--Spring  transaction -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
+
+    <!--spring manage the service -->
+    <context:component-scan base-package="com.assign.ssm.service"/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>
