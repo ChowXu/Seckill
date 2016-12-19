@@ -14,6 +14,7 @@ import redis.clients.jedis.JedisPool;
  * DATE: 16/12/17.
  * TIME: 下午9:15.
  */
+
 public class RedisDao {
 
     private JedisPool jedisPool;

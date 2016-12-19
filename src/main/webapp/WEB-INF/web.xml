@@ -35,19 +35,26 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- 配置springmvc -->
+    <!-- 配置springmvc dispatcher servlet -->
     <servlet>
         <servlet-name>springmvc</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!--
+        配置需要加载的 配置文件
+         mybatis  spring Spring MVC
+         -->
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:spring-mvc.xml</param-value>
         </init-param>
     </servlet>
 
+
+    <!--servlet Mapping-->
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
 

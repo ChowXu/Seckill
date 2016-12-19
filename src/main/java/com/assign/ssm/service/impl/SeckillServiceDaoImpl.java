@@ -4,6 +4,7 @@ import com.assign.ssm.dao.SeckillDao;
 import com.assign.ssm.dao.SuccessKillDao;
 import com.assign.ssm.bean.Seckill;
 import com.assign.ssm.bean.SuccessKill;
+import com.assign.ssm.dao.cache.RedisDao;
 import com.assign.ssm.dto.Exposure;
 import com.assign.ssm.dto.SeckillExecution;
 import com.assign.ssm.emun.SeckillStateEnum;
@@ -33,6 +34,9 @@ public class SeckillServiceDaoImpl implements SeckillServiceDao {
 
     @Autowired
     private SuccessKillDao successKillDao;
+
+    @Autowired
+    private RedisDao redisDao;
 
     private final String salt = "sdadfhasdfj;safjsa;dfh`4`234234";
 
@@ -128,10 +132,18 @@ public class SeckillServiceDaoImpl implements SeckillServiceDao {
      */
 
     public Exposure exposeSeckillUrl(int seckillId) {
-        Seckill seckill = seckillDao.queryById(seckillId);
+
+        // 增加一个缓存逻辑,这么简答的东西
+        Seckill seckill = redisDao.getSeckill(seckillId);
+
         if (seckill == null) {
-            return new Exposure(false, seckillId);
+            seckill = seckillDao.queryById(seckillId);
+            if (seckill == null) {
+                return new Exposure(false, seckillId);
+            }
+            redisDao.putSeckill(seckill);
         }
+
         Date startTime = seckill.getStartTime();
         Date endTime = seckill.getEndTime();
         // current time
