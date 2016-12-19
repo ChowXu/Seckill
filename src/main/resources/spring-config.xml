@@ -32,7 +32,7 @@
     <!--sqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:mapper/seckillMapper"/>
+        <property name="mapperLocations" value="classpath:mapper/*"/>
         <property name="configuration">
             <bean class="org.apache.ibatis.session.Configuration">
                 <property name="mapUnderscoreToCamelCase" value="true"/>
@@ -46,18 +46,28 @@
     <!--Mybatis -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        <property name="basePackage" value="com.assign.ssm.Dao"/>
+        <property name="basePackage" value="com.assign.ssm.dao"/>
     </bean>
 
 
-    <!--Spring  transaction -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
+
+
+    <!--redisDao -->
+    <bean id="redisDao" class="com.assign.ssm.dao.cache.RedisDao">
+        <constructor-arg index="0" value="localhost" />
+        <constructor-arg index="1" value="6379" />
     </bean>
 
 
     <!--spring manage the service -->
     <context:component-scan base-package="com.assign.ssm.service"/>
+
+    <!--Spring  transaction -->
+    <!--配置     事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 

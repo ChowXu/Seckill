@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.assign.ssm.Dao.SeckillDao">
+<mapper namespace="com.assign.ssm.dao.SeckillDao">
     <select id="getSeckillList" resultType="com.assign.ssm.bean.Seckill">
         SELECT s.seckill_id, s.name, s.number, s.start_time, s.end_time,s.create_time
         FROM seckill S
@@ -13,7 +13,7 @@
 
 
     <update id="reduceNum">
-        update seckill set number = number  - 1
+        update ignore seckill set number = number  - 1
         where seckill_id = #{seckillId}
         and start_time &lt;= #{killTime}
         and end_time &gt;= #{killTime}
@@ -24,6 +24,12 @@
         SELECT seckill_id, name, number,end_time,start_time,create_time from seckill
         where seckill_id = #{seckillId};
     </select>
+
+    <insert id="insertSeckill">
+
+        INSERT INTO seckill(name, number,end_time,start_time,create_time)
+        VALUES(#{name}, #{number}, #{endTime}, #{startTime}, #{createTime});
+    </insert>
 
 
 

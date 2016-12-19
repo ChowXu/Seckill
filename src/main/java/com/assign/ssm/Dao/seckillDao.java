@@ -1,4 +1,4 @@
-package com.assign.ssm.Dao;
+package com.assign.ssm.dao;
 
 import com.assign.ssm.bean.Seckill;
 import org.apache.ibatis.annotations.Param;
@@ -11,10 +11,16 @@ import java.util.List;
  * DATE: 16/12/16.
  * TIME: 下午4:55.
  *
- * seckill Dao CURD 增删改查
+ * seckill dao CURD 增删改查
  */
+
 public interface SeckillDao {
 
+    /**
+     * 增加
+     * @param seckill
+     * @return
+     */
     int insertSeckill(Seckill seckill);
 
     /**
@@ -27,7 +33,7 @@ public interface SeckillDao {
 
 
     /**
-     *
+     * 减少库存
      * @param seckillId
      * @param date
      * @return
