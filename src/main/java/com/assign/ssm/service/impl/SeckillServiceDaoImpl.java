@@ -144,13 +144,13 @@ public class SeckillServiceDaoImpl implements SeckillServiceDao {
             redisDao.putSeckill(seckill);
         }
 
-        Date startTime = seckill.getStartTime();
-        Date endTime = seckill.getEndTime();
+        Long startTime = seckill.getStartTime().getTime();
+        Long endTime = seckill.getEndTime().getTime();
         // current time
-        Date now = new Date();
-        if (now.getTime() < startTime.getTime() || now.getTime() > endTime.getTime()) {
+        Long now = new Date().getTime();
+        if (now < startTime || now > endTime) {
             // 这边返回的bean 不对 没有说明是 时间 未到, 还是秒杀已经结束
-            return new Exposure(false, seckillId);
+            return new Exposure(false, seckillId,startTime,endTime,now);
         }
         String md5 = getMd5(seckillId); //
 

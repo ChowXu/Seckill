@@ -50,6 +50,16 @@ public class Exposure {
         this.seckillId = seckillId;
     }
 
+
+
+    public Exposure(boolean exposure, int seckillId, long start, long end, long now) {
+        this.exposure = exposure;
+        this.seckillId = seckillId;
+        this.now = now;
+        this.start = start;
+        this.end = end;
+    }
+
     public Exposure(boolean exposure, long now, long end, long start) {
         this.exposure = exposure;
         this.now = now;

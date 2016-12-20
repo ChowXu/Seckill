@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <div class="panel panel-default text-center">
-        <div class="panel-heading">${seckill.name} ${seckill.seckillId?c} ${seckill.startTime?string('dd.MM.yyyy HH:mm:ss')}</div>
+        <div class="panel-heading">${seckill.name}</div>
         <div class="panel-body">
             <h2 class="text-danger">
             <#--show time icon-->
@@ -22,7 +22,7 @@
 
 <#--弹出层, 输入电话号码-->
 <#--一套完整的 midel组建 -->
-<div id="killPhoneModel" class="model fade">
+<div id="killPhoneModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -58,21 +58,21 @@
 <#--jquery Cookie 插件-->
 <script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <#-- jquery countdown 插件-->
-<script src="http://cdn.bootcss.com/jquery-countdown/2.0.2/jquery.countdown-ar.js"></script>
-
+<script src="https://cdn.bootcss.com/jquery.countdown/2.1.0/jquery.countdown.js"></script>
 <script src="/resources/script/seckill.js" type="text/javascript"></script>
 <script type="text/javascript">
 
     $(function () {
-
-
 
         //使用EL 表达式传入时间
         seckill.detail.init({
             seckillId: "${seckill.seckillId?c}",
             startTime: "${seckill.startTime?datetime}",
             endTime: "${seckill.endTime?datetime}"
+
         });
+
+
 
     })
 

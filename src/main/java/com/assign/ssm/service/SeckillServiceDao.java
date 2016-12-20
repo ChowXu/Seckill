@@ -58,7 +58,7 @@ public interface SeckillServiceDao {
      * @param md5
      */
     SeckillExecution executeSeckill(int seckillId, long userphone, String md5)
-            throws SeckillException, RepeatSeckillException, SeckillCloseException;
+            throws SeckillException ;
 
 
 }
